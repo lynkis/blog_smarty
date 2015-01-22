@@ -1,0 +1,27 @@
+﻿{if isset($smarty.session.success)}
+	{include file="../includes/views/notifications.inc.html"}
+{/if}	
+
+<div class="col-md-6 col-md-push-3" id="container">
+	<div class='panel panel-default'>
+		<div class='panel-heading  text-center'>
+			<h3 class='panel-title'><b>Vos messages </b></h3>
+		</div>
+		<div class='panel-body'>
+			<div class="media-body col-md-12 col-md-push-1">
+				{foreach $messages AS $message}
+					{if $message.a_m_s == 'a'}
+						Messages n°{$message.id_message} : <b>{$message.titre_message}</b> de l'article n°{$message.id_article} effectué par {$message.email} le {$message.date_ajout|date_format:"%d/%m/%Y %H:%M:%S"}<br>
+					{elseif $message.a_m_s == 'm'}
+						Messages n°{$message.id_message} : <b>{$message.titre_message}</b> de l'article n°{$message.id_article} effectué par {$message.email} le {$message.date_modif|date_format:"%d/%m/%Y %H:%M:%S"}<br>
+					{/if}
+				{/foreach}
+				{foreach $messages_sup AS $message_sup}
+					{if $message_sup.a_m_s == 's'}
+						Messages n°{$message_sup.id_message} : <b>{$message_sup.titre}</b> de l'article n°{$message_sup.id_article} effectué par {$message_sup.email} le {$message_sup.date_sup|date_format:"%d/%m/%Y %H:%M:%S"} <br>
+					{/if}
+				{/foreach}
+			</div>
+		</div><br />
+	</div>
+</div>

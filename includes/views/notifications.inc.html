@@ -1,0 +1,116 @@
+﻿{if isset($smarty.session.success) && isset($smarty.get.success)}
+	{if $smarty.get.success == 0} <!-- Si c'est un ajout -->
+		<div class="alert alert-success text-center" role="alert"><i class="fa fa-check-circle-o fa-2x"></i> <b>Succès ! </b> Votre article à bien été ajouté</div>
+	{elseif $smarty.get.success == 1} <!-- Si c'est une suppresion -->
+		<div class="alert alert-success text-center" role="alert"><i class="fa fa-check-circle-o fa-2x"></i> <b>Succès ! </b> Votre suppression de l'article n°{$smarty.session.id_sup} à bien été prise en compte ...</div>
+	{elseif $smarty.get.success == 2} <!-- Si c'est une authentification -->
+		<div class="alert alert-success text-center" role="alert"><i class="fa fa-check-circle-o fa-2x"></i> <b>Succès ! </b> Vous êtes bien authentifier ! Bienvenue {$smarty.session.email}</div>
+	{elseif $smarty.get.success == 3} <!-- Si c'est une modification -->
+		<div class="alert alert-success text-center" role="alert"><i class="fa fa-check-circle-o fa-2x"></i> <b>Succès ! </b> Votre modification sur l'article n°{$smarty.session.id_article} à bien été effectuée !</div>
+	{elseif $smarty.get.success == 4} <!-- Si c'est une déconnexion -->
+		<div class="alert alert-success text-center" role="alert"><i class="fa fa-check-circle-o fa-2x"></i> <b>Succès ! </b> Vous êtes bien déconnecté ! Au revoir </div>
+	{elseif $smarty.get.success == 5} <!-- Si c'est une inscription -->
+		<div class="alert alert-success text-center" role="alert"><i class="fa fa-check-circle-o fa-2x"></i> <b>Succès ! </b> Vous êtes inscrits ! Bienvenue parmis nous ! </div>
+	{/if}
+{/if}
+
+{if isset($smarty.session.error) && isset($smarty.get.error) && !isset($smarty.get.modif)}
+	{if $smarty.get.error == 0} <!-- Si le titre est vide et le texte renseigné -->
+		<div class="clearfix has-error has-feedback row col-md-7 col-md-push-1">	
+			<button type="button" class="btn btn-link" data-toggle="tooltip" data-placement="right" title="Correspond au titre de l'article"><label for="titre">Titre</button><div class="alert alert-danger well-sm" role="alert" id="error0"><i class="fa fa-warning"></i> Le titre doit être renseigné ! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div></label>
+			<div class="input"><input class="form-control" type="text" name="texte" id="texte" ></div><br />
+		</div>
+		
+		<div class="clearfix has-success has-feedback row col-md-7 col-md-push-1">	
+			<button type="button" class="btn btn-link" data-toggle="tooltip" data-placement="right" title="Correspond au contenu de l'article"><label for="texte">Texte</button><div class="alert alert-success well-sm" role="alert" id="error0"><i class="fa fa-check-square-o"></i> Le texte à bien été renseigné ! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div></label>
+			<textarea class="form-control" rows="3" name="texte" id="texte" >{$smarty.session.texte}</textarea><br />
+		</div>
+		
+		<div class="clearfix has-warning has-feedback row col-md-7 col-md-push-1">	
+			<button type="button" class="btn btn-link" data-toggle="tooltip" data-placement="right" title="Correspond à l'image de l'article"><label for="image">Image</button><div class="alert alert-warning well-sm" role="alert" id="error0"><i class="fa fa-warning"></i> L'image n'est pas obligatoire ! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div></label>
+			<div class="input"><input class="form-control" type="file" name="image" id="image" ></div><br />
+		</div>	
+	{elseif $smarty.get.error == 1} <!-- Si le texte est vide et le titre renseigné -->
+
+		<div class="clearfix has-success has-feedback row col-md-7 col-md-push-1">	
+			<button type="button" class="btn btn-link" data-toggle="tooltip" data-placement="right" title="Correspond au titre de l'article"><label for="titre">Titre</button><div class="alert alert-success well-sm" role="alert" id="error1"><i class="fa fa-check-square-o"></i> Le titre à bien été renseigné ! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div></label>
+			<div class="input"><input class="form-control" type="text" name="titre" id="titre" value="{$smarty.session.titre}" ></div><br />
+		</div>
+		
+		<div class="clearfix has-error has-feedback row col-md-7 col-md-push-1">	
+			<button type="button" class="btn btn-link" data-toggle="tooltip" data-placement="right" title="Correspond au contenu de l'article"><label for="texte">Texte</button><div class="alert alert-danger well-sm" role="alert" id="error1"><i class="fa fa-warning"></i> Le texte doit être renseigné ! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div></label>
+			<textarea class="form-control" rows="3" name="texte" id="texte" ></textarea><br />
+		</div>
+		
+		<div class="clearfix has-warning has-feedback row col-md-7 col-md-push-1">	
+			<button type="button" class="btn btn-link" data-toggle="tooltip" data-placement="right" title="Correspond à l'image de l'article"><label for="image">Image</button><div class="alert alert-warning well-sm" role="alert" id="error1"><i class="fa fa-warning"></i> L'image n'est pas obligatoire ! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div></label>
+			<div class="input"><input class="form-control" type="file" name="image" id="image" ></div><br />
+		</div>	
+	{elseif $smarty.get.error == 2} <!-- Si le titre est vide et le texte est vide -->
+		<div class="clearfix has-error has-feedback row col-md-7 col-md-push-1">	
+			<button type="button" class="btn btn-link" data-toggle="tooltip" data-placement="right" title="Correspond au titre de l'article"><label for="titre">Titre</button><div class="alert alert-danger well-sm" role="alert" id="error2" ><i class="fa fa-warning"></i> Le titre doit être renseigné ! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div></label>
+			<div class="input"><input class="form-control" type="text" name="titre" id="titre" ></div><br />
+		</div>
+		
+		<div class="clearfix has-error has-feedback row col-md-7 col-md-push-1">	
+			<button type="button" class="btn btn-link" data-toggle="tooltip" data-placement="right" title="Correspond au contenu de l'article"><label for="texte">Texte</button><div class="alert alert-danger well-sm" role="alert" id="error2"><i class="fa fa-warning"></i> Le texte doit être renseigné ! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div></label>
+			<textarea class="form-control" rows="3" name="texte" id="texte" ></textarea><br />
+		</div>
+		
+		<div class="clearfix has-warning has-feedback row col-md-7 col-md-push-1">	
+			<button type="button" class="btn btn-link" data-toggle="tooltip" data-placement="right" title="Correspond à l'image de l'article"><label for="image">Image</button><div class="alert alert-warning well-sm" role="alert" id="error2"><i class="fa fa-warning"></i> L'image n'est pas obligatoire ! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div></label>
+			<div class="input"><input class="form-control" type="file" name="image" id="image" ></div><br />
+		</div>	
+	{elseif $smarty.get.error == 3} <!-- Si l'authentification n'est pas bonne -->
+		<div class="alert alert-danger text-center" role="alert"><i class="fa fa-ban fa-2x"></i> <b>Erreur ! </b> Votre authentification n'est pas correcte !</div>
+	{/if}
+{/if}
+
+{if isset($smarty.session.error) && isset($smarty.get.error) && isset($smarty.get.modif)}
+	{if $smarty.get.error == 0} <!-- Si le titre est vide et le texte renseigné -->		
+		<div class="clearfix has-error has-feedback row col-md-7 col-md-push-1">	
+			<button type="button" class="btn btn-link" data-toggle="tooltip" data-placement="right" title="Correspond au titre de l'article"><label for="titre">Titre</button><div class="alert alert-danger well-sm" role="alert" id="error0"><i class="fa fa-warning"></i> Le titre doit être renseigné !  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div></label>
+			<div class="input"><input class="form-control" type="text" name="titre" id="titre" ></div><br />
+		</div>
+		
+		<div class="clearfix has-success has-feedback row col-md-7 col-md-push-1">	
+			<button type="button" class="btn btn-link" data-toggle="tooltip" data-placement="right" title="Correspond au contenu de l'article"><label for="texte">Texte</button><div class="alert alert-success well-sm" role="alert" id="error0"><i class="fa fa-check-square-o"></i> Le texte à bien été renseigné ! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div></label>
+			<textarea class="form-control" rows="3" name="texte" id="texte" >{$smarty.session.texte_article}</textarea><br />	
+		</div>
+		
+		<div class="clearfix has-warning has-feedback row col-md-7 col-md-push-1">	
+			<button type="button" class="btn btn-link" data-toggle="tooltip" data-placement="right" title="Correspond à l'image de l'article"><label for="image">Image</button><div class="alert alert-warning well-sm" role="alert" id="error0"><i class="fa fa-warning"></i> L'image n'est pas obligatoire ! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div></label>
+			<div class="input"><input class="form-control" type="file" name="image" id="image" ></div><br />
+		</div>	
+	{elseif $smarty.get.error == 1} <!-- Si le texte est vide et le titre renseigné -->
+		<div class="clearfix has-success has-feedback row col-md-7 col-md-push-1">	
+			<button type="button" class="btn btn-link" data-toggle="tooltip" data-placement="right" title="Correspond au titre de l'article"><label for="titre">Titre</button><div class="alert alert-success well-sm" role="alert" id="error1"><i class="fa fa-check-square-o"></i> Le titre à bien été renseigné !  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div></label>
+			<div class="input"><input class="form-control" type="text" name="texte" id="texte" value="{$smarty.session.titre_article}" ></div><br />
+		</div>
+		
+		<div class="clearfix has-error has-feedback row col-md-7 col-md-push-1">	
+			<button type="button" class="btn btn-link" data-toggle="tooltip" data-placement="right" title="Correspond au contenu de l'article"><label for="texte">Texte</button><div class="alert alert-danger well-sm" role="alert" id="error1"><i class="fa fa-warning"></i> Le texte doit être renseigné  ! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div></label>
+			<textarea class="form-control" rows="3" name="texte" id="texte" ></textarea><br />	
+		</div>
+		
+		<div class="clearfix has-warning has-feedback row col-md-7 col-md-push-1">	
+			<button type="button" class="btn btn-link" data-toggle="tooltip" data-placement="right" title="Correspond à l'image de l'article"><label for="image">Image</button><div class="alert alert-warning well-sm" role="alert" id="error1"><i class="fa fa-warning"></i> L'image n'est pas obligatoire ! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div></label>
+			<div class="input"><input class="form-control" type="file" name="image" id="image" ></div><br />
+		</div>	
+	{elseif $smarty.get.error == 2} <!-- Si le titre est vide et le texte est vide -->
+		<div class="clearfix has-error has-feedback row col-md-7 col-md-push-1">	
+			<button type="button" class="btn btn-link" data-toggle="tooltip" data-placement="right" title="Correspond au titre de l'article"><label for="titre">Titre</button><div class="alert alert-danger well-sm" role="alert" id="error2"><i class="fa fa-warning"></i> Le titre doit être renseigné !  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div></label>
+			<div class="input"><input class="form-control" type="text" name="texte" id="texte" ></div><br />
+		</div>
+		
+		<div class="clearfix has-error has-feedback row col-md-7 col-md-push-1">	
+			<button type="button" class="btn btn-link" data-toggle="tooltip" data-placement="right" title="Correspond au contenu de l'article"><label for="texte">Texte</button><div class="alert alert-danger well-sm" role="alert" id="error2"><i class="fa fa-warning"></i> Le texte doit être renseigné ! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div></label>
+			<textarea class="form-control" rows="3" name="texte" id="texte" ></textarea><br />	
+		</div>
+		
+		<div class="clearfix has-warning has-feedback row col-md-7 col-md-push-1">	
+			<button type="button" class="btn btn-link" data-toggle="tooltip" data-placement="right" title="Correspond à l'image de l'article"><label for="image">Image</button><div class="alert alert-warning well-sm" role="alert" id="error2"><i class="fa fa-warning"></i> L'image n'est pas obligatoire ! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div></label>
+			<div class="input"><input class="form-control" type="file" name="image" id="image" ></div><br />
+		</div>	
+	{/if}
+{/if}

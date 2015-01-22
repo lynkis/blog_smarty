@@ -1,0 +1,62 @@
+﻿<div id="chargement">Chargement...<span id="chargement-infos"></span></div>
+<div id="containers">
+	{if isset($smarty.session.success)}
+		{include file="../includes/views/notifications.inc.html"}
+	{/if}	
+		<div class="col-md-6 col-md-push-3" id="container">
+			<!-- Recherche -->
+			{if isset($smarty.get.r)}
+				<div class='panel panel-default'>
+					<div class='panel-heading  text-center'>
+						<h3 class='panel-title recherche'><b> Résultat(s) de la recherche : {$smarty.get.r} </b></h3>
+					</div>
+				</div>
+			{/if}
+			{foreach $list_news AS $news}
+				<div class='panel panel-default'>
+					<div class='panel-heading  text-center'>
+						<h3 class='panel-title'><b>{$news.titre} </b></h3>
+					</div>
+					<div class='panel-body'>
+						<div class="thumbnail col-md-3">
+							<a class="media-left" href="#">
+								{if $news.image != "assets/images/"}
+									<img src="{$news.image}" alt="..." >
+								{else}
+									<img src="assets/images/interrogation.jpg" alt="..." style="width:300px">
+								{/if}
+							</a>
+						</div>
+						<div class="media-body col-md-7 col-md-push-1">
+							<p class="media-left media-top">				
+							{if $news.contenu|strlen <= 750}
+								{$news.contenu} 
+							{else} 
+								{$news.contenu|substr:0:750} ... 
+							{/if}
+							</p>
+						</div>
+					</div>
+							
+					<div class='col-md-offset-6'><h6><p class='text-center'><i><b>Créer le : {$news.date_ajout|date_format:"%d/%m/%Y %H:%M:%S"} par {$news.nom} {$news.prenom}</b></i></p></h6></div>
+					{if $news.date_modif != 0}
+						<div class='col-md-offset-6'><h6><p class='text-center'><i><b>Modifié le : {$news.date_modif|date_format:"%d/%m/%Y %H:%M:%S"}</b></i></p></h6></div>
+					{/if}
+					{if $news.contenu|strlen >= 750}
+						<div class='col-md-offset-6'><h5><p class='text-center'><b><a href='#'  data-id='{$news.id_news}' class='afficher-article'>Lire la suite</a></b></p></h5></div>
+					{/if}
+					{if isset($smarty.session.admin) == 1}
+						<div class='text-center'>
+							<a href='modif_article.php?modif={$news.id}' ><button type='button' class='btn btn-warning' ><i class='fa fa-pencil-square-o '></i> Modifier</button></a> &nbsp;
+							<a href='includes/supp_articles.inc.php?supp={$news.id}' onClick="return confirm('Etes-vous sûr de vouloir supprimer cet article ?');"><button type='button' class='btn btn-danger' ><i class='fa fa-trash'></i> Supprimer</button></a><br />&nbsp;
+						</div>
+					{/if}
+				</div>
+			{/foreach}
+
+<script>
+// Le DOM est pret
+$(document).ready(function() {
+	$.pageLoader();
+});
+</script>

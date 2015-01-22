@@ -1,0 +1,36 @@
+﻿<div class="row col-md-6 col-md-push-3"><br />
+	<div class='panel panel-default'>
+		<div class='panel-heading'>
+			<h3 class='panel-title text-center'><b>Rédiger un article</b></h3>
+		</div>
+		<div class='panel-body'>	
+			<form action="includes/add_articles.inc.php" method="POST" enctype="multipart/form-data">
+				{if isset($smarty.session.success)}
+					{include file="../includes/views/notifications.inc.html"}
+				{/if}
+				{if isset($smarty.session.error)}
+					{include file="../includes/views/notifications.inc.html"}
+				{else}
+					<div class="clearfix row col-md-7 col-md-push-1">	
+						<button type="button" class="btn btn-link" data-toggle="tooltip" data-placement="right" title="Correspond au titre de l'article"><label for="titre">Titre</button></label>
+						<div class="input"><input class="form-control" type="text" name="titre" id="titre" ></div><br />
+					</div>
+			
+					<div class="clearfix row col-md-12 col-md-push-1">
+						<button type="button" class="btn btn-link" data-toggle="tooltip" data-placement="right" title="Correspond au contenu de l'article"><label for="texte">Texte</button></label>
+						<textarea class="form-control" rows="4" name="texte" id="texte" ></textarea><br />	
+					</div>
+					
+					<div class="clearfix row col-md-4 col-md-push-1">	
+						<button type="button" class="btn btn-link" data-toggle="tooltip" data-placement="right" title="Correspond à l'image chargée"><label for="image">Image</button></label>
+						<div class="input"><input class="form-control" type="file" name="image" id="image" ></div><br />
+					</div>
+				{/if}
+				<div class="form-action row col-md-12">
+					<p class="text-center"><button type="submit" class="btn btn-large btn-primary"><i class="fa fa-pencil"></i> Ajouter l'article</button></p>
+				</div>
+			</form><br />
+		</div>
+	</div>
+</div>
+{include file="assets/js/tooltip.js"}
